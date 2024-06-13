@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from einops import rearrange
 
-from models.base_trans.transformer_base import transformer_base
+from base_trans.transformer_base import transformer_base
 
 
 class ViT(nn.Module):
