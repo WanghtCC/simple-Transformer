@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from einops import rearrange
 
-from base_trans.transformer_base import transformer_base
+from .base_trans.transformer_base import transformer_base
 
 
 class ViT(nn.Module):
@@ -39,26 +39,26 @@ class ViT(nn.Module):
 
     def forward(self, x, mask=None):
         p = self.patch_size
-        print("init", x.shape)
+        # print("init", x.shape)
 
         x = rearrange(
             x, "b c (h p1) (w p2) -> b (h w) (p1 p2 c)", p1=p, p2=p
         )  # [H W C] -> [N PPC]
-        print(x.shape, "rearrange")
+        # print(x.shape, "rearrange")
         x = self.patch_to_embedding(x)  # [N PPC] -> [N PPC D]
-        print(x.shape, "patch_to_embedding")
+        # print(x.shape, "patch_to_embedding")
         cls_tokens = self.cls_token.expand(x.shape[0], -1, -1)  # [N 1 D]
-        print(cls_tokens.shape, "cls_tokens")
+        # print(cls_tokens.shape, "cls_tokens")
         x = torch.cat((cls_tokens, x), dim=1)  # [N PPC+1 D]
-        print(x.shape, "cat")
-        print(self.pos_embedding.shape, "pos_embedding")
+        # print(x.shape, "cat")
+        # print(self.pos_embedding.shape, "pos_embedding")
         x = x + self.pos_embedding
         x = self.transformer(x, mask)
-        print(x.shape, "after transformer")
+        # print(x.shape, "after transformer")
         x = self.to_cls_token(x[:, 0])
-        print(x.shape, "after to_cls_token")
+        # print(x.shape, "after to_cls_token")
         x = self.mlp_head(x)
-        print(x.shape, "after mlp_head")
+        # print(x.shape, "after mlp_head")
         return x
 
 

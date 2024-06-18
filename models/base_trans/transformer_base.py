@@ -1,4 +1,4 @@
-from base_trans.modules import *
+from .modules import *
 
 class transformer_base(nn.Module):
     def __init__(self, dim, depth, heads, mlp_dim):
