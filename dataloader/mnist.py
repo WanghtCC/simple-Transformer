@@ -9,4 +9,10 @@ def load_mnist(batch_size_train, batch_size_test=1):
     test_set = torchvision.datasets.MNIST(root='./dataset', train=False, download=True, transform=transform_mnist)
     test_loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size_test, shuffle=False)
     
+    print('MNIST dataset load successful')
+    print('-' * 80)
+    print(f'Total train image-label pair: {len(train_loader.dataset)}')
+    print(f'Total test  image-label pair: {len(test_loader.dataset)}')
+    print('-' * 80)
+
     return train_loader, test_loader

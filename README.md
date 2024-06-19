@@ -1,14 +1,14 @@
-# simple-Transformer
+# Simple-Transformer
 
 - Auther：Wanght
-- Data：06/12/2024
+- Data：06/18/2024
 - Email：819237474@qq.com
 
 ---
 
 在这个Github库里，我们会将transformer的理论、训练、推理和消融实验进行较为全面的梳理，
 
-追求能够通过这个项目达到对model的顺利使用以及细节查验。
+追求能够通过这个项目达到对model的流利使用以及细节查验。
 
 那么，让我们开始吧：
 
