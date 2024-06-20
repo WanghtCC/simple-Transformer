@@ -11,6 +11,7 @@ class transformer_base(nn.Module):
             ]))
 
     def forward(self, x, mask=None):
+        # print(x.shape)
         for attn, ff in self.layers:
             x = attn(x, mask=mask)
             x = ff(x)

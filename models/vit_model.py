@@ -43,9 +43,9 @@ class ViT(nn.Module):
 
         x = rearrange(
             x, "b c (h p1) (w p2) -> b (h w) (p1 p2 c)", p1=p, p2=p
-        )  # [H W C] -> [N PPC]
+        )  # [B C H W] -> [B N PPC] ====> [B, 1, 28, 28] -> [B, 16, 49]
         # print(x.shape, "rearrange")
-        x = self.patch_to_embedding(x)  # [N PPC] -> [N PPC D]
+        x = self.patch_to_embedding(x)  # [B N PPC] -> [B N PPC D] ====> [B, 16, 49] -> [B, 16, 64]
         # print(x.shape, "patch_to_embedding")
         cls_tokens = self.cls_token.expand(x.shape[0], -1, -1)  # [N 1 D]
         # print(cls_tokens.shape, "cls_tokens")
@@ -53,12 +53,13 @@ class ViT(nn.Module):
         # print(x.shape, "cat")
         # print(self.pos_embedding.shape, "pos_embedding")
         x = x + self.pos_embedding
-        x = self.transformer(x, mask)
+        x = self.transformer(x, mask)   # [B, 17, 64]
         # print(x.shape, "after transformer")
         x = self.to_cls_token(x[:, 0])
         # print(x.shape, "after to_cls_token")
         x = self.mlp_head(x)
         # print(x.shape, "after mlp_head")
+        # print('-' * 80)
         return x
 
 

@@ -28,7 +28,23 @@
 
 - #### 训练&推理
 
-更多细节请看 [这里](./model/README.md)
+在这里，我会手动搭建一个Transformer模型，并进行逐行解析清晰地进行理解。
+
+以 ViT 识别 MNIST 为例。
+
+##### Train:
+
+```
+python main.py
+```
+
+##### Eval:
+
+```
+python eval.py
+```
+
+更多我自己理论外的理解、更多细节以及逐行解析请看 [这里](./models/README.md)
 
 ----
 

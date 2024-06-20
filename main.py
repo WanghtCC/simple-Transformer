@@ -23,6 +23,7 @@ model = ViT(
     heads=8,
     mlp_dim=128,
 )
+
 optimizer = optim.Adam(model.parameters(), lr=LR)
 
 start_time = time.time()
