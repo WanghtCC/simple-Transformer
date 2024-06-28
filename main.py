@@ -6,8 +6,8 @@ import torch.nn.functional as F
 from models.vit_model import ViT
 from dataloader.mnist import load_mnist
 
-BATCH_SIZE = 20
-EPOCH = 5
+BATCH_SIZE = 16
+EPOCH = 10
 LR = 1e-4
 
 torch.manual_seed(123)
@@ -15,13 +15,13 @@ train_loader, test_loader = load_mnist(BATCH_SIZE)
 
 model = ViT(
     image_size=28,
-    patch_size=7,
+    patch_size=14,
     num_classes=10,
     channels=1,
-    dim=64,
-    depth=6,
+    dim=128,
+    depth=5,
     heads=8,
-    mlp_dim=128,
+    mlp_dim=256,
 )
 
 optimizer = optim.Adam(model.parameters(), lr=LR)
