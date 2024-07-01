@@ -1,9 +1,5 @@
-import time
 import torch
-import datetime
-import torch.optim as optim
 import torch.nn.functional as F
-from models.vit_model import ViT
 from models.init import init_model
 from dataloader.mnist import load_mnist
 from utils import load_pretrained_weights, print_img
