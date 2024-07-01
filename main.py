@@ -3,30 +3,31 @@ import torch
 import datetime
 import torch.optim as optim
 import torch.nn.functional as F
-from models.vit_model import ViT
+from models.init import init_model
 from dataloader.mnist import load_mnist
 
 BATCH_SIZE = 16
-EPOCH = 10
+EPOCH = 2
 LR = 1e-4
 
 torch.manual_seed(123)
 train_loader, test_loader = load_mnist(BATCH_SIZE)
 
-model = ViT(
-    image_size=28,
-    patch_size=14,
-    num_classes=10,
-    channels=1,
-    dim=128,
-    depth=5,
-    heads=8,
-    mlp_dim=256,
+model = init_model('vit',
+                   image_size=28,
+                   patch_size=14,
+                   num_classes=10,
+                   channels=1,
+                   dim=128,
+                   depth=5,
+                   heads=8,
+                   mlp_dim=256,
 )
 
 optimizer = optim.Adam(model.parameters(), lr=LR)
 
 start_time = time.time()
+best_acc = 0.
 train_loss_list, test_loss_list = [], []
 for epoch in range(1, EPOCH + 1):
     epoch_start_time = time.time()
@@ -92,6 +93,12 @@ for epoch in range(1, EPOCH + 1):
 
     print('Eval Finished. Total elapsed time(h:m:s): {}'.format(elapsed))
     print('-' * 80)
+
+    if accuracy > best_acc:
+        best_acc = accuracy
+        torch.save({'state_dict':model.state_dict()}, './result/best_model.pth')
+        print('Best model saved!')
+        print('-' * 80)
 
 elapsed = round(time.time() - start_time)
 elapsed = str(datetime.timedelta(seconds=elapsed))

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from vit_model import ViT
+from .vit_model import ViT
 
 __factory = {
     'vit': ViT,
